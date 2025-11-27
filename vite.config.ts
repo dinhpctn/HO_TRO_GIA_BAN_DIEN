@@ -3,10 +3,9 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
+    // We intentionally do NOT inject server API keys into the client bundle.
+    // Use server-side env (GEMINI_API_KEY) for backend functions.
     const env = loadEnv(mode, '.', '');
-    
-    // Ưu tiên VITE_GEMINI_API_KEY (Vercel), fallback về GEMINI_API_KEY (local)
-    const apiKey = env.VITE_GEMINI_API_KEY || env.GEMINI_API_KEY || '';
 
     return {
       server: {
@@ -14,11 +13,6 @@ export default defineConfig(({ mode }) => {
         host: '0.0.0.0',
       },
       plugins: [react()],
-      define: {
-        // Expose API key vào runtime; dùng '' làm fallback để tránh undefined tại build-time
-        'process.env.API_KEY': JSON.stringify(apiKey),
-        'process.env.GEMINI_API_KEY': JSON.stringify(apiKey)
-      },
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),
