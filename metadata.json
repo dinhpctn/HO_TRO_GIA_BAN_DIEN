@@ -1,0 +1,5 @@
+{
+  "name": "Copy of GIÁ BÁN ĐIỆN",
+  "description": "A RAG-based chatbot that prioritizes the most recent documents when answering questions based on uploaded context.",
+  "requestFramePermissions": []
+}
